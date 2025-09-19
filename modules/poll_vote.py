@@ -5,11 +5,7 @@ from urllib.parse import urljoin
 
 BASE = "https://mbasic.facebook.com"
 
-def vote_poll(client, post_id, option_index=0, logger=print, dry_run=False):
-    """
-    Try to find poll form on a post and submit a vote.
-    option_index is 0-based.
-    """
+def vote_poll(client, post_id, option_index=0, logger=print, dry_run=True):
     if dry_run:
         logger(f"[DRY RUN] Would vote on {post_id} option {option_index}")
         return True, "dry_run"
@@ -18,6 +14,7 @@ def vote_poll(client, post_id, option_index=0, logger=print, dry_run=False):
     r = client.get(post_url)
     if r.status_code != 200:
         return False, f"status_{r.status_code}"
+
     soup = BeautifulSoup(r.text, "html.parser")
     for form in soup.find_all("form", action=True):
         radios = form.find_all("input", {"type": "radio"})
