@@ -111,4 +111,4 @@ def comment_on_post(client, post_id, text, logger=None):
         soup = BeautifulSoup(r.text, "html.parser")
         form = None
         for f in soup.find_all("form", action=True):
-            if f.find("input", {"name": "comment_text"}
+            if f.find("input", {"name": "comment_text"}):
