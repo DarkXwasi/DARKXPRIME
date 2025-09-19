@@ -1,5 +1,3 @@
-Create modules/poll_vote.py:
-
 # modules/poll_vote.py
 import time
 from bs4 import BeautifulSoup
@@ -54,4 +52,3 @@ def vote_poll(client, post_id, option_index=0, logger=print, dry_run=False):
             r2 = client.post(action, data=data)
             return (r2.status_code == 200), f"status_{getattr(r2,'status_code',None)}"
     return False, "no_poll_form_found"
-
