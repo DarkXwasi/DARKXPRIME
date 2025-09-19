@@ -108,7 +108,32 @@ def comment_on_post(client, post_id, text, logger=None):
         r = client.get(post_url)
         if r.status_code != 200:
             return False, f"status_{r.status_code}"
+
         soup = BeautifulSoup(r.text, "html.parser")
         form = None
         for f in soup.find_all("form", action=True):
             if f.find("input", {"name": "comment_text"}):
+                form = f
+                break
+
+        if not form:
+            return False, "comment_form_not_found"
+
+        action = form.get("action")
+        if not action.startswith("http"):
+            action = urljoin("https://mbasic.facebook.com", action)
+
+        data = {}
+        for inp in form.find_all("input"):
+            name = inp.get("name")
+            value = inp.get("value", "")
+            if name == "comment_text":
+                value = text
+            if name:
+                data[name] = value
+
+        r2 = client.post(action, data=data)
+        return (r2.status_code == 200), f"commented:{r2.status_code}"
+    except Exception as e:
+        if logger: logger(f"[Comment] Error: {e}")
+        return False, str(e)
