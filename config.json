@@ -5,8 +5,8 @@ nano config.json — edit to your accounts & group id:
   "dry_run": true,
   "accounts": [
     {
-      "uid": "youremail_or_phone_here",
-      "password": "YOUR_PASSWORD_HERE",
+      "uid": "100090447430959",
+      "password": "Abbasi786",
       "active": true
     }
   ],
