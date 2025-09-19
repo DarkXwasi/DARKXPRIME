@@ -1,0 +1,28 @@
+nano config.json — edit to your accounts & group id:
+
+{
+  "debug": true,
+  "dry_run": true,
+  "accounts": [
+    {
+      "uid": "youremail_or_phone_here",
+      "password": "YOUR_PASSWORD_HERE",
+      "active": true
+    }
+  ],
+  "group": {
+    "id": "1297679682137901",
+    "comment_texts": ["❤️","❤️🔥","😐","👌"],
+    "reactions": ["like","love","care","wow"],
+    "max_pages": 20
+  },
+  "settings": {
+    "reaction_delay_min": 6,
+    "reaction_delay_max": 12,
+    "comment_delay_min": 8,
+    "comment_delay_max": 18,
+    "user_agent": "Mozilla/5.0 (Linux; Android 10; Mobile)"
+  }
+}
+
+Start with "dry_run": true for testing — no real requests will be sent for react/comment if you check for that in main flows (I include checks in flows).
